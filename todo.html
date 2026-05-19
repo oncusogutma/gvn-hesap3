@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todo</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="container">
+<a class="back" href="../index.html">← Ana Sayfa</a>
+
+<h1>To Do</h1>
+
+<input type="text" id="task" placeholder="Yeni görev">
+
+<button onclick="addTask()">EKLE</button>
+
+<div id="tasks"></div>
+</div>
+
+<script>
+let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+
+function render(){
+  const area = document.getElementById('tasks');
+  area.innerHTML = '';
+
+  tasks.forEach((t,i)=>{
+    area.innerHTML += `
+      <div class="todo-item">
+        ${t}
+      </div>
+    `;
+  });
+}
+
+function addTask(){
+  const value = document.getElementById('task').value;
+
+  if(!value) return;
+
+  tasks.push(value);
+
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+
+  document.getElementById('task').value='';
+
+  render();
+}
+
+render();
+</script>
+
+</body>
+</html>

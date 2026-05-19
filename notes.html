@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notlar</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="container">
+<a class="back" href="../index.html">← Ana Sayfa</a>
+
+<h1>Not Defteri</h1>
+
+<textarea id="note" rows="6" placeholder="Teknik notlar..."></textarea>
+
+<button onclick="saveNote()">KAYDET</button>
+
+<div id="notes"></div>
+</div>
+
+<script>
+let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+
+function render(){
+  const area = document.getElementById('notes');
+  area.innerHTML = '';
+
+  notes.forEach((n)=>{
+    area.innerHTML += `
+      <div class="note-item">
+        ${n}
+      </div>
+    `;
+  });
+}
+
+function saveNote(){
+  const value = document.getElementById('note').value;
+
+  if(!value) return;
+
+  notes.push(value);
+
+  localStorage.setItem('notes', JSON.stringify(notes));
+
+  document.getElementById('note').value='';
+
+  render();
+}
+
+render();
+</script>
+
+</body>
+</html>

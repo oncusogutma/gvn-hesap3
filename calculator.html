@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hesaplayıcı</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="container">
+<a class="back" href="../index.html">← Ana Sayfa</a>
+
+<h1>Kompresör Hesaplayıcı</h1>
+
+<input type="number" id="kw" placeholder="Motor Gücü (kW)">
+<input type="number" id="volt" placeholder="Voltaj">
+
+<button onclick="calculate()">HESAPLA</button>
+
+<div class="result" id="result"></div>
+</div>
+
+<script>
+function calculate(){
+  const kw = Number(document.getElementById('kw').value);
+  const volt = Number(document.getElementById('volt').value);
+
+  if(!kw){
+    alert("Motor gücü giriniz");
+    return;
+  }
+
+  const current = (kw*1000)/(Math.sqrt(3)*volt*0.85);
+
+  document.getElementById('result').innerHTML =
+    "Tahmini Akım: <strong>" + current.toFixed(2) + " A</strong>";
+}
+</script>
+
+</body>
+</html>
